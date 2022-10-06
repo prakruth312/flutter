@@ -1,86 +1,58 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  return runApp(
+    MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.red,
+        appBar: AppBar(
+          title: Text('Dicee'),
+          backgroundColor: Colors.red,
+        ),
+        body: DicePage(),
+      ),
+    ),
+  );
+}
+class DicePage extends StatefulWidget {
+  @override
+  State<DicePage> createState() => _DicePageState();
 }
 
-class MyApp extends StatelessWidget {
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber =1;
+  int rightDiceNumber =1;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.teal,
-        body: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: AssetImage('images/prakruth.jpg'),
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextButton (
+              onPressed: () {
+                setState(() {
+                 leftDiceNumber = Random().nextInt(6) + 1;
+                 print('diceNumber =$leftDiceNumber');
+                });
+              },
+              child: Image.asset('images/dice$leftDiceNumber.png'),
             ),
-            Text(
-              'prakruth soma',
-              style: TextStyle(
-                  fontFamily: 'Pacifico',
-                  fontSize: 40.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: TextButton(
+              onPressed: (){
+                setState(() {
+                  rightDiceNumber = Random().nextInt(6) + 1;
+                  print('diceNumber =$rightDiceNumber');
+                });
+              },
+              child: Image.asset('images/dice$rightDiceNumber.png'),
             ),
-            Text(
-              'FLUTTER DEVELOPER',
-              style: TextStyle(
-                fontFamily: 'Source Sans Pro',
-                color: Colors.blue.shade100,
-                fontSize: 20.0,
-                letterSpacing: 2.5,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-              width: 150.0,
-              child: Divider(
-            color: Colors.teal.shade100,
-            ),
-            ),
-            Card(
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.phone,
-                  color: Colors.teal,
-                ),
-                title: Text(
-                  '+832 841 1301',
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.email,
-                  color: Colors.teal,
-                ),
-                title: Text(
-                  'prakruth.soma@gmail.com',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.teal.shade900,
-                      fontFamily: 'Source Sans Pro'),
-                ),
-              ),
-            ),
-          ],
-        )),
+          ),
+        ],
       ),
     );
-    Container();
   }
 }
